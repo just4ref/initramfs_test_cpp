@@ -1,0 +1,7 @@
+ref:
+
+arm-linux-gnueabihf-g++ -march=armv7-a -mtune=cortex-a15 -static -o test test.cpp
+qemu-system-arm -M virt -cpu cortex-a15 -m 256 -kernel arch/arm/boot/zImage -nographic -append "console=ttyAMA0"
+
+
+
