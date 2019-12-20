@@ -40,6 +40,11 @@ static int lacc_close(struct inode *inode, struct file *file)
 	return 0;
 }
 
+static void dump_user_data(struct ioctl_data *pdata) {
+	printk("map_h:%d,map_w:%d,times:%d,nums:%d,points:%d,result:%x\n",
+	       pdata->map_h, pdata->map_w, pdata->times, pdata->nums, pdata->points, pdata->result);
+}
+
 static long lacc_ioctl(struct file *file, unsigned int cmd,
 							unsigned long arg)
 {
@@ -51,6 +56,7 @@ static long lacc_ioctl(struct file *file, unsigned int cmd,
 	}
 		
 	printk("lacc: ioctl, cmd=%d\n", cmd);
+	dump_user_data(&idata);
 	idata.result = 0x12345678;
 
 	if (copy_to_user((void *)arg, &idata, sizeof(idata))) {
